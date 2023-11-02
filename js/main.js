@@ -42,29 +42,61 @@ thumbnails.forEach((thumbnail, index) => {
 });
 
 
-// weather apis
-  // Fetch weather data from an API (replace 'YOUR_WEATHER_API_ENDPOINT' with the actual API endpoint)
-  fetch('YOUR_WEATHER_API_ENDPOINT')
-    .then(response => response.json())
-    .then(weatherData => {
-      const temperatureElement = document.getElementById('weather');
-      temperatureElement.textContent = `The weather is ${weatherData.description} in ${weatherData.location} and it’s ${weatherData.temperature}°C outside.`;
-    })
-    .catch(error => {
-      console.error('Error fetching weather data:', error);
-    });
+// // weather apis
+//   // Fetch weather data from an API (replace 'YOUR_WEATHER_API_ENDPOINT' with the actual API endpoint)
+//   fetch('YOUR_WEATHER_API_ENDPOINT')
+//     .then(response => response.json())
+//     .then(weatherData => {
+//       const temperatureElement = document.getElementById('weather');
+//       temperatureElement.textContent = `The weather is ${weatherData.description} in ${weatherData.location} and it’s ${weatherData.temperature}°C outside.`;
+//     })
+//     .catch(error => {
+//       console.error('Error fetching weather data:', error);
+//     });
 
-  // Function to update the local time
-  function updateLocalTime() {
-    const timeElements = document.querySelectorAll('.time-number');
-    const now = new Date();
-    timeElements[0].textContent = String(now.getHours()).padStart(2, '0');
-    timeElements[1].textContent = String(now.getMinutes()).padStart(2, '0');
-    timeElements[2].textContent = String(now.getSeconds()).padStart(2, '0');
-    }
+//   // Function to update the local time
+//   function updateLocalTime() {
+//     const timeElements = document.querySelectorAll('.time-number');
+//     const now = new Date();
+//     timeElements[0].textContent = String(now.getHours()).padStart(2, '0');
+//     timeElements[1].textContent = String(now.getMinutes()).padStart(2, '0');
+//     timeElements[2].textContent = String(now.getSeconds()).padStart(2, '0');
+//     }
 
-    // Update local time every second
-  setInterval(updateLocalTime, 1000);
+//     // Update local time every second
+//   setInterval(updateLocalTime, 1000);
 
-  // Initial call to update time
-  updateLocalTime();
+//   // Initial call to update time
+//   updateLocalTime();
+
+
+// Fetch weather data from the OpenWeatherMap API
+const API_KEY = 'YOUR_OPENWEATHERMAP_API_KEY';
+const CITY_NAME = 'Kathmandu'; // Replace with the desired city name
+
+const weatherEndpoint = `https://api.openweathermap.org/data/2.5/weather?q=${CITY_NAME}&appid=${API_KEY}`;
+
+fetch(weatherEndpoint)
+  .then(response => response.json())
+  .then(weatherData => {
+    const temperatureElement = document.getElementById('weather');
+    temperatureElement.textContent = `The weather is ${weatherData.weather[0].description} in ${weatherData.name} and it’s ${weatherData.main.temp}°C outside.`;
+  })
+  .catch(error => {
+    console.error('Error fetching weather data:', error);
+  });
+
+// Function to update the local time
+function updateLocalTime() {
+  const timeElements = document.querySelectorAll('.time-number');
+  const now = new Date();
+  timeElements[0].textContent = String(now.getHours()).padStart(2, '0');
+  timeElements[1].textContent = String(now.getMinutes()).padStart(2, '0');
+  timeElements[2].textContent = String(now.getSeconds()).padStart(2, '0');
+}
+
+// Update local time every second
+setInterval(updateLocalTime, 1000);
+
+// Initial call to update time
+updateLocalTime();
