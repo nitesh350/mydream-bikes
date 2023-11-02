@@ -61,9 +61,9 @@ thumbnails.forEach((thumbnail, index) => {
     timeElements[0].textContent = String(now.getHours()).padStart(2, '0');
     timeElements[1].textContent = String(now.getMinutes()).padStart(2, '0');
     timeElements[2].textContent = String(now.getSeconds()).padStart(2, '0');
-  }
+    }
 
-  // Update local time every second
+    // Update local time every second
   setInterval(updateLocalTime, 1000);
 
   // Initial call to update time
